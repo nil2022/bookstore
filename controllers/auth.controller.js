@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('../models/users.model')
+const authConfig = require('../configs/auth.config')
 
 /* -------- SIGNUP API----------- */
 exports.signup = async (req, res) => {
@@ -59,7 +60,7 @@ exports.signin = async (req, res) => {
       res.status(401).send('Invalid Password!')
       return
     }
-    const token = jwt.sign({ userId: user.userId }, process.env.SECRET_KEY, {
+    const token = jwt.sign({ userId: user.userId }, authConfig.secretKey, {
       expiresIn: '7d' // 7 Days
     })
   

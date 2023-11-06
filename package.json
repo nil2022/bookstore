@@ -4,8 +4,8 @@
   "description": "Welcome to the My Bookstore API repository! This API allows you to manage books and user authentication for your online bookstore. Below, you'll find information on the API endpoints, how to set up and run the application locally, and some of the decisions and assumptions made during the development process.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./index.js",
-    "start": "node ./index.js",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
     "build": "npm install bcrypt dotenv express jsonwebtoken mongoose validator --save"
   },
   "keywords": [
