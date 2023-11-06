@@ -116,15 +116,15 @@ exports.deleteBook = async (req, res) => {
     const id = req.query.id
     try {
         const bookdata = await Books.findOneAndDelete({ _id: id }).exec()
-        if (bookdata == null) throw Error
+        // if (bookdata == null) throw new Error('Book not Present')
         console.log('Request to delete user for', bookdata)
         res.status(200).send({
           message: 'Book record has been deleted successfully'
         })
       } catch (error) {
-        console.log(`Error while deleting the record, Book not Present ***${error}***`)
+        console.log(`Error while deleting the record, ${error}`)
         res.status(500).send({
-          message: 'Some internal error occured'
+          message: `Error while deleting the record, Book not Present `
         })
       }
 }
