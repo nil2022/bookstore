@@ -1,7 +1,7 @@
 {
-  "name": "brewapps",
+  "name": "bookstore",
   "version": "1.0.0",
-  "description": "",
+  "description": "Welcome to the My Bookstore API repository! This API allows you to manage books and user authentication for your online bookstore. Below, you'll find information on the API endpoints, how to set up and run the application locally, and some of the decisions and assumptions made during the development process.",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./index.js",
@@ -16,7 +16,7 @@
     "nodemon",
     "validator"
   ],
-  "author": "",
+  "author": "Nilanjan Haldar",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -28,5 +28,13 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nil2022/bookstore.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nil2022/bookstore/issues"
+  },
+  "homepage": "https://github.com/nil2022/bookstore#readme"
 }
