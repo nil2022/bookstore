@@ -49,14 +49,6 @@ exports.signin = async (req, res) => {
       res.status(400).send("Failed! UserId doesn't exist!")
       return
     }
-  
-    // if (user.userStatus !== userStatus.approved) {
-    //   res.status(403).send({
-    //     message: `Can't allow login as user is in status : [${user.userStatus}]`
-    //   })
-    //   return
-    // }
-  
     const passwordIsValid = bcrypt.compareSync(
       req.body.password,
       user.password
