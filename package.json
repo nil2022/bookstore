@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Welcome to the My Bookstore API repository! This API allows you to manage books and user authentication for your online bookstore. Below, you'll find information on the API endpoints, how to set up and run the application locally, and some of the decisions and assumptions made during the development process.",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
@@ -28,7 +29,7 @@
     "validator": "^13.11.0"
   },
   "engines": {
-    "node": ">=16.20.2"
+    "node": ">=18.19.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
