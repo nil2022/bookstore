@@ -7,7 +7,8 @@ Welcome to My Bookstore API repository! This API allows you to manage books and 
 1. **User Signup**
    - Endpoint: `POST /api/auth/signup`
    - Usage: Register a new user.
-   - Request body: 
+   - Request body:
+
      ```
      {
        "username": "your_name",
@@ -21,6 +22,7 @@ Welcome to My Bookstore API repository! This API allows you to manage books and 
    - Endpoint: `POST /api/auth/signin`
    - Usage: Authenticate and sign in a registered user.
    - Request body:
+
      ```
      {
        "userId": "your_userid",
@@ -32,6 +34,7 @@ Welcome to My Bookstore API repository! This API allows you to manage books and 
    - Endpoint: `POST /api/book/add`
    - Usage: Add a new book to the bookstore's catalog.
    - Request body:
+
      ```
      {
        "title": "Book Title",
@@ -55,6 +58,7 @@ Welcome to My Bookstore API repository! This API allows you to manage books and 
    - Endpoint: `PUT /api/book/updatebook?id=your_book_id`
    - Usage: Update the details of a specific book by providing its unique ID. You can modify the book's price, or any other details(can be added later).
    - Request body:
+
      ```
      {
        "price": 24.99
@@ -116,4 +120,3 @@ During the development process, the following decisions and assumptions were mad
 - **Authorization**: While user authentication is implemented, explicit authorization and role-based access control for API endpoints are not mentioned. Depending on your project requirements, you may need to extend the API to include these features.
 
 Please adapt the API and its authentication mechanisms to align with your project's security and access control needs. If you have any questions or need further assistance, feel free to reach out for support.
-
