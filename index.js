@@ -1,4 +1,6 @@
-require('dotenv').config();  // import all environment variables
+require('dotenv').config({
+  path: `.env.development`
+});  // import all environment variables
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
@@ -25,8 +27,10 @@ app.get('/', (req, res) => {
     res.status(200).send('App running successfully')
 })
 
-require('./routes/auth.routes')(app)
-require('./routes/book.routes')(app)
+const authRoutes = require('./routes/auth.routes')
+const bookRoutes = require('./routes/book.routes')
+authRoutes(app)
+bookRoutes(app)
 
 
 
