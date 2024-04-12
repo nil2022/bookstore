@@ -1,4 +1,5 @@
 const express = require('express');
+const serverless =require("serverless-http");
 const app = express();
 const mongoose = require('mongoose')
 const { DB_URL } = require('./configs/db.config')
@@ -31,6 +32,8 @@ const authRoutes = require('./routes/auth.routes')
 const bookRoutes = require('./routes/book.routes')
 authRoutes(app)
 bookRoutes(app)
+
+module.exports.handler = serverless(app)
 
 
 
