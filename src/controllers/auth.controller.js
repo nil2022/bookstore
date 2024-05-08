@@ -61,7 +61,7 @@ exports.signin = async (req, res) => {
       return
     }
     const token = jwt.sign({ userId: user.userId }, authConfig.secretKey, {
-      expiresIn: '7d' // 7 Days
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY || '7d' // 7 Days
     })
   
     const signInResponse = {
@@ -70,7 +70,14 @@ exports.signin = async (req, res) => {
       email: user.email,
       accessToken: token
     }
-    res.status(201).send({
+
+    const cookieOptions = {
+      httpOnly: true,
+      secure: true
+    }
+    res.status(201)
+    .cookie('accessToken', token, cookieOptions)
+    .json({
       message: 'Signed in successfully!',
       Response: signInResponse
     })
