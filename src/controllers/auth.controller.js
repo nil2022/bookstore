@@ -11,10 +11,10 @@ exports.signup = async (req, res) => {
     const salt = await bcrypt.genSalt(10) // Salt generate to Hash Password
 
     const userObj = {
-       username: username,
-       userId: userId,
-       password: bcrypt.hashSync(password, salt),
-       email: email
+        username: username,
+        userId: userId,
+        password: bcrypt.hashSync(password, salt),
+        email: email
     }
 
     try {
