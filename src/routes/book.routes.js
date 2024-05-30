@@ -10,7 +10,7 @@ module.exports = function (app) {
     /* ----- VIEW A BOOK BY ID API -------- */
     app.get('/api/book/viewbyid', [authjwt.verifyToken], bookController.fetchById)
     /* ----- UPDATE A BOOK API -------- */
-    app.put('/api/book/updatebook', [authjwt.verifyToken, validateBookDetails.isBookPresent], bookController.updateBook)
+    app.patch('/api/book/updatebook', [authjwt.verifyToken, validateBookDetails.isBookPresent], bookController.updateBook)
     /* ----- DELETE A BOOK API -------- */
     app.delete('/api/book/deletebook', [authjwt.verifyToken, validateBookDetails.isBookPresent], bookController.deleteBook)
 }
