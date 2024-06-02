@@ -25,17 +25,28 @@ mongoose.connect(DB_URL)
     console.log("Can't connect to DB:", error.message)
   })
 
-app.get('/health', (req, res) => {
-    res.status(200).send({
-      success: true,
-      message: 'Backend is up and running!'
-    })
-})
-
 const authRoutes = require('./routes/auth.routes')
 const bookRoutes = require('./routes/book.routes')
 authRoutes(app)
 bookRoutes(app)
+
+
+app.get('/health', (req, res) => {
+  res.status(200).send({
+    success: true,
+    message: 'Backend is up and running!'
+  })
+})
+
+
+app.use("*", (req, res) => {
+  res.json({
+    success: false,
+    message: 'Requested resource not found',
+    requestURL: req.originalUrl,
+    statusCode: 404
+  })
+})
 
 module.exports.handler = serverless(app)
 
