@@ -38,7 +38,7 @@ app.get('/health', (req, res) => {
   })
 })
 
-
+/** Route not found Middleware */
 app.use("*", (req, res) => {
   res.json({
     success: false,
