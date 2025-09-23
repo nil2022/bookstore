@@ -2,11 +2,18 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('../models/users.model')
 const authConfig = require('../configs/auth.config')
+const { userRegistrationValidation } = require('../helpers/validation')
 
 /* -------- SIGNUP API----------- */
 exports.signup = async (req, res) => {
 
     const { username, userId, password, email, } = req.body;
+
+    const {error} = userRegistrationValidation.validate(req.body);
+    if (error) return res.status(400).json({
+      status : false,
+      message: error.details[0].message
+    })
 
     const salt = await bcrypt.genSalt(10) // Salt generate to Hash Password
 
