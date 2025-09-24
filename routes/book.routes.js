@@ -1,16 +1,15 @@
-const bookController = require('../controllers/books.controller')
-const validateBookDetails = require('../middlewares/validateBookDetails')
-const authjwt = require('../middlewares/auth.jwt')
+// routes/book.routes.js
+import Router from "express";
+import { addOneBook, deleteBook, fetchAllBooks, fetchById, updateBook } from "#controllers/books";
+import { isBookDetailsProvided, isBookPresent } from "#middlewares/validateBookDetails";
+import { verifyToken } from "#middlewares/auth";
 
-module.exports = function (app) {
-    /* ----- ADD A BOOK API -------- */
-    app.post('/api/book/add', [authjwt.verifyToken, validateBookDetails.isBookDetailsProvided], bookController.addOneBook)
-    /* ----- VIEW A LIST OF ALL BOOKS API -------- */
-    app.get('/api/book/viewall', [authjwt.verifyToken], bookController.fetchAllBooks)
-    /* ----- VIEW A BOOK BY ID API -------- */
-    app.get('/api/book/viewbyid', [authjwt.verifyToken], bookController.fetchById)
-    /* ----- UPDATE A BOOK API -------- */
-    app.patch('/api/book/updatebook', [authjwt.verifyToken, validateBookDetails.isBookPresent], bookController.updateBook)
-    /* ----- DELETE A BOOK API -------- */
-    app.delete('/api/book/deletebook', [authjwt.verifyToken, validateBookDetails.isBookPresent], bookController.deleteBook)
-}
+const bookRouter = Router();
+
+bookRouter.route("/add").post([verifyToken, isBookDetailsProvided], addOneBook);
+bookRouter.route("/viewall").get([verifyToken], fetchAllBooks);
+bookRouter.route("/viewbyid").get([verifyToken], fetchById);
+bookRouter.route("/updatebook").patch([verifyToken, isBookPresent], updateBook);
+bookRouter.route("/deletebook").delete([verifyToken, isBookPresent], deleteBook);
+
+export default bookRouter;

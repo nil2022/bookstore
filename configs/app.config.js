@@ -2,6 +2,7 @@
 import express from "express";
 import logger from "morgan";
 import cookieParser from "cookie-parser";
+import router from "#root/routes/index";
 
 const app = express();
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
@@ -9,10 +10,8 @@ app.use(express.json({ limit: "16kb" })); // parse JSON data & add it to the req
 app.use(logger("dev"));
 app.use(cookieParser());
 
-// const authRoutes = require("./routes/auth.routes");
-// const bookRoutes = require("./routes/book.routes");
-// authRoutes(app);
-// bookRoutes(app);
+// import all routes here
+app.use("/api/v1", router);
 
 app.get("/", (req, res) => {
     res.status(200).send({

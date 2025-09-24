@@ -11,7 +11,6 @@ const userSchema = new Schema(
             type: String,
             required: [true, "Not Provided"],
             lowercase: true,
-            unique: true,
         },
         password: {
             type: String,
@@ -21,7 +20,6 @@ const userSchema = new Schema(
             type: String,
             required: [true, "Not Provided"],
             lowercase: true,
-            unique: true,
         },
     },
     {
@@ -29,6 +27,10 @@ const userSchema = new Schema(
         collection: "users",
     }
 );
+
+// Create index to avoid duplicate userId and email
+userSchema.index({ userId: 1 }, { unique: true });
+userSchema.index({ email: 1 }, { unique: true });
 
 const User = mongoose.model("User", userSchema);
 

@@ -20,7 +20,7 @@
   "imports": {
     "#configs/*": "./configs/*.config.js",
     "#controllers/*": "./controllers/*.controller.js",
-    "#middlwares/*": "./middlewares/*.middleware.js",
+    "#middlewares/*": "./middlewares/*.middleware.js",
     "#models/*": "./models/*.model.js",
     "#routes/*": "./routes/*.routes.js",
     "#helpers/*": "./helpers/*.helper.js",
