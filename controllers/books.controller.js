@@ -1,7 +1,8 @@
-const Books = require("../models/book.model");
+// controllers/books.controller.js
+import Books from "#models/book";
 
 /* ----- ADD A BOOK CONTROLLER ----- */
-exports.addOneBook = async (req, res) => {
+export const addOneBook = async (req, res) => {
     const { title, author, ISBN, publisher, price, language } = req.body;
 
     const checkExistingTitle = await Books.findOne({
@@ -50,7 +51,7 @@ exports.addOneBook = async (req, res) => {
 };
 
 /* ----- VIEW A LIST OF ALL BOOKS CONTROLLER ----- */
-exports.fetchAllBooks = async (req, res) => {
+export const fetchAllBooks = async (req, res) => {
     try {
         const viewAllBooks = await Books.find();
         // throw new Error("Manual Error")
@@ -67,7 +68,7 @@ exports.fetchAllBooks = async (req, res) => {
 };
 
 /* ----- VIEW A SPECIFIC BOOK BY ID ('_id' OR 'ISBN') CONTROLLER ----- */
-exports.fetchById = async (req, res) => {
+export const fetchById = async (req, res) => {
     const id = req.query.id;
     try {
         if (!id) throw new Error("Book id is not provided");
@@ -86,7 +87,7 @@ exports.fetchById = async (req, res) => {
 };
 
 /* ----- UPDATE A BOOK DETAIL CONTROLLER ----- */
-exports.updateBook = async (req, res) => {
+export const updateBook = async (req, res) => {
     const id = req.query.id;
     const { price } = req.body;
     try {
@@ -113,7 +114,7 @@ exports.updateBook = async (req, res) => {
 };
 
 /* ----- DELETE A BOOK CONTROLLER ----- */
-exports.deleteBook = async (req, res) => {
+export const deleteBook = async (req, res) => {
     const id = req.query.id;
     try {
         const bookdata = await Books.findOneAndDelete({ _id: id }).exec();

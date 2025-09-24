@@ -1,6 +1,7 @@
-const Joi = require("joi");
+// helpers/validation.helper.js
+import Joi from "joi";
 
-const userRegistrationValidation = Joi.object({
+export const userRegistrationValidation = Joi.object({
     username: Joi.string().required(),
     userId: Joi.string().required(),
     password: Joi.string().required().min(4),
@@ -12,10 +13,9 @@ const userRegistrationValidation = Joi.object({
             "string.empty": `Email is required`,
             "any.required": "Please provide Email",
         }),
-})
-    .options({ abortEarly: false, allowUnknown: true });
+}).options({ abortEarly: false, allowUnknown: true });
 
-const userLoginValidation = Joi.object({
+export const userLoginValidation = Joi.object({
     userId: Joi.string().required(),
     password: Joi.string().required().min(4),
 })
@@ -25,5 +25,3 @@ const userLoginValidation = Joi.object({
         "string.min": "Password must be at least {{#limit}} characters",
     })
     .options({ abortEarly: false, allowUnknown: true });
-
-module.exports = { userRegistrationValidation, userLoginValidation };
