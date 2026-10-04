@@ -1,5 +1,8 @@
 # My Bookstore API
 
+[![CI - Vulnerability Check](https://github.com/nil2022/bookstore/actions/workflows/vulnerbility-check.yml/badge.svg?branch=master)](https://github.com/nil2022/bookstore/actions/workflows/vulnerbility-check.yml)
+[![CodeQL](https://github.com/nil2022/bookstore/actions/workflows/github-code-scanning/codeql/badge.svg?branch=master)](https://github.com/nil2022/bookstore/actions/workflows/github-code-scanning/codeql)
+
 Welcome to My Bookstore API repository! This API allows you to manage books and user authentication for your online bookstore. Below, you'll find information on the API endpoints, how to set up and run the application locally, and some of the decisions and assumptions made during the development process.
 
 ## API Endpoints and Usage
