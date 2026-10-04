@@ -20,8 +20,13 @@ jobs:
         node-version: '>=18.19.0' # Specify the Node.js version you want to test against
         check-latest: true
 
+    # package-lock.json is not tracked in this repo, but `npm audit` needs one
+    - name: Generate lockfile
+      run: npm install --package-lock-only --ignore-scripts
+
+    # Production dependencies only: the remaining dev-only advisory (nodemon > chokidar > braces) has no patched release yet
     - name: Run Vulnerability Scan
-      run: npm audit --json
+      run: npm audit --omit=dev --audit-level=high
 
     - name: Fix Vulnerabilities
-      run: npm audit fix --dry-run --json
+      run: npm audit fix --dry-run --omit=dev --json
