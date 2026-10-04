@@ -9,7 +9,8 @@ const isBookDetailsProvided = async (req, res, next) => {
 
     if(error) {
         console.log("Book details missing/invalid:", error.details[0].message)
-        res.status(403).send(`Some details are missing or invalid! ${error.details[0].message}`)
+        // JSON (not text/html): the message can contain user-supplied text
+        res.status(403).json({ message: `Some details are missing or invalid! ${error.details[0].message}` })
         return
     }
     req.body = value // only validated, correctly typed fields reach the controller
@@ -33,7 +34,7 @@ const isBookPresent = async (req, res, next) => {
 
     try {
         const book = await Books.findOne({
-            _id:id
+            _id: { $eq: id }
         })
         if(!book) {
             res.status(403).send("Book does not exists in server")

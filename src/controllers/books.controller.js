@@ -15,11 +15,12 @@ exports.addOneBook = async (req, res) => {
     };
 
     try {
+        // `$eq` forces a literal match, so user input can never be interpreted as a query operator
         const checkExistingTitle = await Books.findOne({
-            title: title,
+            title: { $eq: title },
         });
         const checkExistingISBN = await Books.findOne({
-            ISBN: ISBN,
+            ISBN: { $eq: ISBN },
         });
 
         if (checkExistingTitle || checkExistingISBN) {
@@ -73,7 +74,7 @@ exports.fetchById = async (req, res) => {
     try {
         if (!id) throw new Error("Book id is not provided");
         const fetchBookbyId = await Books.find({
-            _id: id,
+            _id: { $eq: id },
         });
         res.status(200).send({
             message: "Fetched Successfully",
@@ -98,7 +99,7 @@ exports.updateBook = async (req, res) => {
     try {
         const updateBook = await Books.findOneAndUpdate(
             {
-                _id: id,
+                _id: { $eq: id },
             },
             {
                 price: value.price,
@@ -121,7 +122,7 @@ exports.updateBook = async (req, res) => {
 exports.deleteBook = async (req, res) => {
     const id = req.query.id;
     try {
-        const bookdata = await Books.findOneAndDelete({ _id: id }).exec();
+        const bookdata = await Books.findOneAndDelete({ _id: { $eq: id } }).exec();
         // if (bookdata == null) throw new Error('Book not Present')
         console.log("Request to delete user for", bookdata);
         res.status(200).send({
