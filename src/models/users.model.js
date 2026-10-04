@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { ROLES, ROLE_VALUES } = require("../configs/roles.config");
 
 const userSchema = mongoose.Schema({
   username: {
@@ -20,6 +21,11 @@ const userSchema = mongoose.Schema({
     required: [true, "Not Provided"],
     lowercase: true,
     unique: true
+  },
+  role: {
+    type: String,
+    enum: ROLE_VALUES,
+    default: ROLES.USER
   },
   createdAt: {
     type: Date,
