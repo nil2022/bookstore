@@ -1,6 +1,9 @@
 const User = require('../models/users.model')
 const { ROLES } = require('../configs/roles.config')
 
+// Strip line breaks from anything user-controlled before it is logged (prevents forged log lines)
+const oneLine = (value) => String(value).replace(/[\r\n]/g, '')
+
 /*
  * Role check, to be used AFTER verifyToken.
  * The role is read from the DB on every request (not from the JWT), so promotions, demotions
@@ -19,7 +22,7 @@ const authorizeRoles = (...allowedRoles) => async (req, res, next) => {
 
     const role = user.role ?? ROLES.USER // accounts created before roles existed are regular users
     if (!allowedRoles.includes(role)) {
-      console.log(`Forbidden: '${req.userId}' (${role}) tried to access ${req.method} ${req.originalUrl}`)
+      console.log(`Forbidden: '${oneLine(req.userId)}' (${oneLine(role)}) tried to access ${oneLine(req.method)} ${oneLine(req.originalUrl)}`)
       return res.status(403).send({
         message: 'Forbidden: you do not have permission to perform this action'
       })
