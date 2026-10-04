@@ -8,9 +8,9 @@ module.exports = function (app) {
     /* ----- VIEW A LIST OF ALL BOOKS API -------- */
     app.get('/api/book/viewall', [authjwt.verifyToken], bookController.fetchAllBooks)
     /* ----- VIEW A BOOK BY ID API -------- */
-    app.get('/api/book/viewbyid', [authjwt.verifyToken], bookController.fetchById)
+    app.get('/api/book/viewbyid', [authjwt.verifyToken, validateBookDetails.isValidBookId], bookController.fetchById)
     /* ----- UPDATE A BOOK API -------- */
-    app.patch('/api/book/updatebook', [authjwt.verifyToken, validateBookDetails.isBookPresent], bookController.updateBook)
+    app.patch('/api/book/updatebook', [authjwt.verifyToken, validateBookDetails.isValidBookId, validateBookDetails.isBookPresent], bookController.updateBook)
     /* ----- DELETE A BOOK API -------- */
-    app.delete('/api/book/deletebook', [authjwt.verifyToken, validateBookDetails.isBookPresent], bookController.deleteBook)
+    app.delete('/api/book/deletebook', [authjwt.verifyToken, validateBookDetails.isValidBookId, validateBookDetails.isBookPresent], bookController.deleteBook)
 }
