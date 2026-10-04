@@ -1,21 +1,9 @@
 const Books = require("../models/book.model");
+const { bookPriceValidation } = require("../helpers/validation");
 
 /* ----- ADD A BOOK CONTROLLER ----- */
 exports.addOneBook = async (req, res) => {
     const { title, author, ISBN, publisher, price, language } = req.body;
-
-    const checkExistingTitle = await Books.findOne({
-        title: title,
-    });
-    const checkExistingISBN = await Books.findOne({
-        ISBN: ISBN,
-    });
-
-    if (checkExistingTitle || checkExistingISBN) {
-        console.log("Book with provided title/ISBN already Exists!");
-        res.status(403).send("Book with provided title/ISBN already Exists!");
-        return;
-    }
 
     const bookObj = {
         title: title,
@@ -27,6 +15,19 @@ exports.addOneBook = async (req, res) => {
     };
 
     try {
+        const checkExistingTitle = await Books.findOne({
+            title: title,
+        });
+        const checkExistingISBN = await Books.findOne({
+            ISBN: ISBN,
+        });
+
+        if (checkExistingTitle || checkExistingISBN) {
+            console.log("Book with provided title/ISBN already Exists!");
+            res.status(403).send("Book with provided title/ISBN already Exists!");
+            return;
+        }
+
         const addBook = await Books.create(bookObj);
         const response = {
             title: addBook.title,
@@ -88,15 +89,19 @@ exports.fetchById = async (req, res) => {
 /* ----- UPDATE A BOOK DETAIL CONTROLLER ----- */
 exports.updateBook = async (req, res) => {
     const id = req.query.id;
-    const { price } = req.body;
+    const { error, value } = bookPriceValidation.validate(req.body);
+    if (error) {
+        return res.status(400).send({
+            message: error.details[0].message,
+        });
+    }
     try {
-        if (!id || !price) throw new Error("id or price not provided");
         const updateBook = await Books.findOneAndUpdate(
             {
                 _id: id,
             },
             {
-                price: price,
+                price: value.price,
                 updatedAt: Date.now(),
             }
         ).exec();

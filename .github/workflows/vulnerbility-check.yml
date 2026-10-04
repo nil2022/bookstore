@@ -2,6 +2,10 @@ name: Node.js Vulnerability Check
 
 on: [push, pull_request]
 
+# Least privilege: this workflow only needs to read the repo
+permissions:
+  contents: read
+
 jobs:
   check-vulnerabilities:
     runs-on: ubuntu-latest

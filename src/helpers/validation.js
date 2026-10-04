@@ -1,29 +1,55 @@
 const Joi = require("joi");
 
+// bcrypt only uses the first 72 bytes of a password, so cap it there
+const PASSWORD_MAX_LENGTH = 72;
+
 const userRegistrationValidation = Joi.object({
-    username: Joi.string().required(),
-    userId: Joi.string().required(),
-    password: Joi.string().required().min(4),
+    username: Joi.string().trim().max(100).required(),
+    userId: Joi.string().trim().lowercase().max(50).required(),
+    password: Joi.string().required().min(8).max(PASSWORD_MAX_LENGTH),
     email: Joi.string()
+        .trim()
+        .lowercase()
+        .max(254)
+        .email()
         .required()
-        .pattern(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)
         .messages({
-            "string.pattern.base": "Invalid email address",
+            "string.email": "Invalid email address",
             "string.empty": `Email is required`,
             "any.required": "Please provide Email",
         }),
 })
-    .options({ abortEarly: false, allowUnknown: true });
+    .options({ abortEarly: false, allowUnknown: true, stripUnknown: true });
 
 const userLoginValidation = Joi.object({
-    userId: Joi.string().required(),
-    password: Joi.string().required().min(4),
+    userId: Joi.string().trim().lowercase().max(50).required(),
+    // No min() here: login must not reveal the password policy
+    password: Joi.string().required().max(PASSWORD_MAX_LENGTH),
 })
     .messages({
         "string.empty": "{{#label}} is required",
         "any.required": "Please provide {{#label}}",
-        "string.min": "Password must be at least {{#limit}} characters",
     })
-    .options({ abortEarly: false, allowUnknown: true });
+    .options({ abortEarly: false, allowUnknown: true, stripUnknown: true });
 
-module.exports = { userRegistrationValidation, userLoginValidation };
+const bookValidation = Joi.object({
+    title: Joi.string().trim().max(200).required(),
+    author: Joi.string().trim().max(200).required(),
+    ISBN: Joi.string().trim().max(20).required(),
+    publisher: Joi.string().trim().max(200).required(),
+    price: Joi.number().positive().required(),
+    language: Joi.string().trim().max(50).required(),
+})
+    .options({ abortEarly: false, allowUnknown: true, stripUnknown: true });
+
+const bookPriceValidation = Joi.object({
+    price: Joi.number().positive().required(),
+})
+    .options({ abortEarly: false, allowUnknown: true, stripUnknown: true });
+
+module.exports = {
+    userRegistrationValidation,
+    userLoginValidation,
+    bookValidation,
+    bookPriceValidation,
+};

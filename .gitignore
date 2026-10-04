@@ -1,3 +1,16 @@
-*.env
-package-lock.json
+# dependencies
 node_modules
+
+# environment files (secrets) - keep only the sample committed
+.env
+.env.*
+*.env
+!.env.sample
+
+# logs
+logs
+*.log
+npm-debug.log*
+
+# lockfile is intentionally not tracked in this repo
+package-lock.json

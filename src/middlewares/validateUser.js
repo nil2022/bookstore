@@ -34,7 +34,7 @@ const isEmailRegisteredOrProvided = async (req, res, next) => {
   if (!user) {
     next()
   } else {
-    console.log('Email already registered!', user)
+    console.log('Email already registered!')
     return res.status(400).send('Email already registered!')
   }
 }
