@@ -117,6 +117,6 @@ During the development process, the following decisions and assumptions were mad
 
 - **Endpoint URLs**: The provided endpoint URLs are designed to support user registration, authentication, and book management. You can adjust these endpoints as needed to meet your specific requirements.
 
-- **Authorization**: While user authentication is implemented, explicit authorization and role-based access control for API endpoints are not mentioned. Depending on your project requirements, you may need to extend the API to include these features.
+- **Authorization (roles)**: Every user has a role, `user` (default) or `admin`. Any signed-in user can view books (`viewall`, `viewbyid`); only an `admin` can add, update or delete books (others get `403`). The role is checked against the database on each request, so promotions/demotions take effect immediately. Signup cannot set a role; promote someone from the server with `npm run set-role -- <userId> admin` (and demote with `... user`).
 
 Please adapt the API and its authentication mechanisms to align with your project's security and access control needs. If you have any questions or need further assistance, feel free to reach out for support.
