@@ -3,9 +3,9 @@ const authConfig = require('../configs/auth.config')
 
 /* -------- CHECK IF TOKEN IS PROVIDED & VERIFY TOKEN ----------- */
 const verifyToken = (req, res, next) => {
-    const token = req.cookies?.accessToken || req.headers['token']
+    // Header only: browsers never attach this automatically, so requests can't be forged cross-site
+    const token = req.headers['token']
 
-    // cookie-parser can hand back non-strings (e.g. JSON cookies), only accept a string token
     if (!token || typeof token !== 'string') {
       return res.status(403).send({
         message: 'No token provided!'
