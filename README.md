@@ -113,7 +113,7 @@ During the development process, the following decisions and assumptions were mad
 
 - **User Authentication**: To provide secure access, the API assumes user authentication. Registered users are required to sign in to the web app using their credentials.
 
-- **JWT (JSON Web Tokens)**: For maintaining user sessions and ensuring secure access, the API utilizes JSON Web Tokens (JWT). This token-based authentication mechanism is used to verify the identity of users and ensure that they have access to the appropriate resources.
+- **JWT (JSON Web Tokens)**: For maintaining user sessions and ensuring secure access, the API utilizes JSON Web Tokens (JWT). This token-based authentication mechanism is used to verify the identity of users and ensure that they have access to the appropriate resources. After `POST /api/auth/signin`, send the returned `accessToken` in the `token` request header on every protected request (the API does not use cookies, so it is not exposed to CSRF).
 
 - **Endpoint URLs**: The provided endpoint URLs are designed to support user registration, authentication, and book management. You can adjust these endpoints as needed to meet your specific requirements.
 

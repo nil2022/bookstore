@@ -92,14 +92,9 @@ exports.signin = async (req, res) => {
         accessToken: token
       }
 
-      const cookieOptions = {
-        httpOnly: true,
-        secure: process.env.NODE_ENV !== 'development',
-        sameSite: 'strict', // blocks CSRF, the cookie is used to authenticate state-changing requests
-        maxAge: jwt.decode(token).exp * 1000 - Date.now() // cookie lives exactly as long as the token
-      }
+      // No auth cookie on purpose: the client sends the token in the `token` header,
+      // so there is no ambient credential a third-party site could ride on (no CSRF)
       res.status(201)
-      .cookie('accessToken', token, cookieOptions)
       .json({
         message: 'Signed in successfully!',
         Response: signInResponse
